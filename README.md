@@ -2,7 +2,7 @@
 # Site ecommerce sous Symfony 6
 
 ## Contexte
-Site ecommerce de vente de différents types de claviers pour pc.
+Site ecommerce fictif de vente de différents types de claviers pour pc.
 
 ## Déroulé du projet
 
