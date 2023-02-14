@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }} - Keyboard Store{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row gx-5">
+        <div class="col-md-5">
+            <img class="card-img-top img-fluid" src="{{ product.illustration }}" alt="{{ product.name }}">
+        </div>
+        <div class="col-md-7 my-auto">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.subtitle }}</p>
+            {{(product.price / 100)|number_format(2, ',' , '.')}}€
+            <hr>
+            <p>{{ product.description }}</p>
+            <a href="{{ path('app_add_to_cart', {'id' : product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

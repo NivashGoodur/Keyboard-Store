@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur de paiement - Keyboard Store{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2 class="mt-4">Erreur de paiement</h2>
+    <p>
+        Bonjour <strong>{{ order.user.firstname }}
+            {{ order.user.lastname }},</strong>
+        <br> <br>
+        Il semblerait que votre paiement est échoué pour votre commande n° <strong>{{ order.reference }}</strong> .
+        <hr>
+        <a class="btn btn-success" href="{{ path('app_order') }}">Réessayez le paiement</a>
+    </p>
+</div>
+{% endblock %}

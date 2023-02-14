@@ -1,0 +1,204 @@
+{% set currentRoute = app.request.attributes.get('_route') %}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="professional mechanical keyboard and PBT material keycaps">
+        <meta name="google-site-verification" content="..." />
+        <title>{% block title %}Keyboard Store!{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href=" {{asset('assets/favicon/favicon.png')}} ">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <link href=" {{asset('assets/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+        <link href=" {{asset('assets/css/styles.css')}}" rel="stylesheet">
+        <link href=" {{asset('assets/css/custom.css')}}" rel="stylesheet">
+
+        <script src="{{asset('assets/js/tarteaucitron/tarteaucitron.js')}}"></script>
+        <script type="text/javascript">
+        tarteaucitron.init({
+        "privacyUrl": "", /* Privacy policy url */
+        "bodyPosition": "bottom", /* or top to bring it as first element for accessibility */
+
+        "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+        "cookieName": "tarteaucitron", /* Cookie name */
+
+        "orientation": "middle", /* Banner position (top - bottom) */
+
+        "groupServices": false, /* Group services by category */
+        "serviceDefaultState": "wait", /* Default state (true - wait - false) */
+                        
+        "showAlertSmall": false, /* Show the small banner on bottom right */
+        "cookieslist": false, /* Show the cookie list */
+                        
+        "closePopup": false, /* Show a close X on the banner */
+
+        "showIcon": true, /* Show cookie icon to manage cookies */
+        //"iconSrc": "", /* Optionnal: URL or base64 encoded image */
+        "iconPosition": "BottomRight", /* BottomRight, BottomLeft, TopRight and TopLeft */
+
+        "adblocker": false, /* Show a Warning if an adblocker is detected */
+                        
+        "DenyAllCta" : true, /* Show the deny all button */
+        "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+        "highPrivacy": true, /* HIGHLY RECOMMANDED Disable auto consent */
+                        
+        "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
+
+        "removeCredit": false, /* Remove credit link */
+        "moreInfoLink": true, /* Show more info link */
+
+        "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
+        "useExternalJs": false, /* If false, the tarteaucitron.js file will be loaded */
+
+        //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
+                        
+        "readmoreLink": "", /* Change the default readmore link */
+
+        "mandatory": true, /* Show a message about mandatory cookies */
+        "mandatoryCta": true /* Show the disabled accept button when mandatory on */
+        });
+        </script>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="{{ path('app_home') }}"> <img id="logo-navbar" src="{{asset('assets/favicon/favicon.png')}}" alt="logo Keyboard Store" height="30"> Keyboard Store</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link {{ currentRoute == 'app_products' ? ' active' }}" aria-current="page" href="{{ path('app_products') }}">Nos produits</a></li>
+                        <li class="nav-item"><a class="nav-link {{ currentRoute == 'app_contact' ? ' active' }}" aria-current="page" href="{{ path('app_contact') }}">Contact</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item"><a class="nav-link active text-danger" aria-current="page" href="/admin">Dashboard Admin</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4">
+                        {% if app.user %}
+                        <li class="nav-item"><a class="nav-link {{ currentRoute == 'app_account' ? ' active' }}" href="{{ path('app_account') }}">Profil</a></li>
+                        <li class="nav-item"><a class="nav-link {{ currentRoute == 'app_logout' ? ' active' }}" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                        {% else %}                            
+                        <li class="nav-item"><a class="nav-link {{ currentRoute == 'app_register' ? ' active' }}" href="{{ path('app_register') }}">Inscription</a></li>
+                        <li class="nav-item nav-link">|</li>
+                        <li class="nav-item"><a class="nav-link {{ currentRoute == 'app_login' ? ' active' }}" href="{{ path('app_login') }}">Connexion</a></li>
+                        {% endif %}
+                    </ul>
+                    <form class="d-flex ml-2">
+                        <a class="my-cart" href="{{ path('app_cart') }}">
+                            <img src="{{ asset('assets/img/shopping-cart.png') }}" alt="mon panier" height="20">
+                            <span class="badge bg-light text-dark ms-1 rounded-pill">
+                                {% if app.session.get('numberProducts') > 0 %}
+                                {{ app.session.get('numberProducts') }}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        {% block body %}{% endblock %}
+
+        <!-- Footer -->
+        <footer class="text-center py-3 text-lg-start bg-dark text-muted mt-5">
+            <!-- Section: Links  -->
+            <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                    Keyboard Store
+                    </h6>
+                    <p>
+                    Vente de claviers d'ordinateur mécanique, membrane ou customisés.
+                    </p>
+                </div>
+                <!-- Grid column -->
+        
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                    Produits
+                    </h6>
+                    <p>
+                    <a href="#!" class="text-reset">Mécanique</a>
+                    </p>
+                    <p>
+                    <a href="#!" class="text-reset">Membrane</a>
+                    </p>
+                    <p>
+                    <a href="#!" class="text-reset">Customisé</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+        
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                    Mentions légales
+                    </h6>
+                    <p>
+                    <a href="{{ path('app_property_terms') }}" class="text-reset">Terms & Conditions</a>
+                    </p>
+                    <p>
+                    <a href="{{ path('app_property_privacy') }}" class="text-reset">Privacy Policy</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+        
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <p><i class="fas fa-home me-3 text-secondary"></i>2 rue de l'échappée, 75010 PARIS</p>
+                    <p>
+                    <i class="fas fa-envelope me-3 text-secondary"></i>
+                    KeyboardStore@example.com
+                    </p>
+                    <p><i class="fas fa-home me-3 text-secondary"></i><a class="text-secondary" href="{{ path('app_contact') }}">Nous envoyer un message</a></p>
+                    <p><i class="fas fa-phone me-3 text-secondary"></i> + 01 234 567 88</p>
+                </div>
+                <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+            </section>
+            <!-- Section: Links  -->
+        
+            <!-- Copyright -->
+            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+            © 2023 Copyright:
+            <a class="text-reset fw-bold" href="{{ path('app_home') }}">Keyboard Store</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+
+        <!-- Bootstrap core JS-->
+        <script src=" {{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+        
+        {# gtag #}
+        <script type="text/javascript">
+        tarteaucitron.user.gtagUa = 'G-L0GXED1N9V';
+        // tarteaucitron.user.gtagCrossdomain = ['example.com', 'example2.com'];
+        tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
+        (tarteaucitron.job = tarteaucitron.job || []).push('gtag');
+        </script>
+    </body>
+</html>

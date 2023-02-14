@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider ma commande - Keyboard Store{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2>Mon récapitulatif</h2>
+        <p>Vérifier vos informations avant de payer votre commande</p>
+        <hr>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <p><strong>Mon adresse de livraison : </strong></p>
+                <div class="form-check mt-5">
+                    {{ delivery|raw }}
+                </div>
+                <hr>
+                <p><strong>Transporteur: </strong></p>
+                <div class="form-check">
+                    <p> {{ carrier.name }}</p>
+                    <p>{{ carrier.description }}</p>
+                    <p>{{ (carrier.price / 100)|number_format(2, ',', '.')}}€</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="text-center">
+                    <p class="fw-bolder">Ma commande</p>
+                </div>
+                <div class="order-summary">
+                    {% set total = null %}
+                    {% for product in cart %}
+                        <div class="row mb-5">
+                            <div class="col-2">
+                                <img class="img-fluid" src="{{ product.product.illustration }}" alt="{{ product.product.name }}" height="75px">
+                            </div>
+                            <div class="col-8 my-auto">
+                                {{ product.product.name }} <br>
+                                <small>{{ product.product.subtitle }}
+                                    <br/>
+                                    x {{ product.quantity }}
+                                </small>
+                            </div>
+                            <div class="col-2 my-auto">
+                                <td>{{ ((product.product.price * product.quantity) / 100)|number_format(2, ',', '.')}}€</td>
+                            </div>
+                        </div>
+                        {% set total = total + (product.product.price * product.quantity) %}
+                    {% endfor %}
+                </div>
+                <hr>
+                
+                <p><strong>Sous-Total:</strong> {{ (total / 100)|number_format(2, ',', '.')}}€</p>
+                <p><strong>Livraison:</strong> {{ (carrier.price / 100)|number_format(2, ',', '.')}}€</p>
+                <hr>
+                <p><strong>Total: </strong>{{ ((total / 100) + (carrier.price / 100)) |number_format(2, ',', '.')}}€</p>
+                
+    
+                <a href="{{ path('app_stripe_create_session', {reference: reference}) }}" class="btn btn-success d-block w-100 mt-3">Payer | {{ ((total / 100) + (carrier.price / 100)) |number_format(2, ',', '.')}}€€</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

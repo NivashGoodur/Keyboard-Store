@@ -1,0 +1,84 @@
+.btn-info {
+    color: #fff !important;
+}
+.my-cart {
+    text-decoration: none;
+    color: inherit;
+}
+a {
+    text-decoration: none;
+}
+.btn-add-address {
+    width: 100%;
+}
+.form-check {
+    background-color: #f4f8ff;
+    padding: 20px 65px;
+    margin-top: 7px;
+}
+.col-form-label {
+    font-weight: bold;
+}
+.order-summary {
+    background-color: #f4f8ff;
+    padding: 20px;
+    margin-top: 22px;
+}
+.account-item {
+    background-color: #f1f2f6;
+    padding: 40px;
+    margin-bottom: 40px;
+}
+.account-item:hover {
+    transition: 0.3s ease;
+    background-color: rgb(13 110 251 / 25%);
+}
+.account-item p {
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #4b6584;
+    font-weight: bold;
+    display: block;
+    margin-top: 20px;
+}
+#carouselExampleCaptions .carousel-inner .carousel-item img {
+    max-height: 600px;
+    object-fit: cover;
+}
+.marketing h2 {
+    font-weight: 400;
+}
+.featurette-heading {
+    margin-top: 7rem;
+    font-size: 50px;
+    color: #5a5a5a;
+}
+.featurette-divider {
+    margin: 5rem 0;
+}
+.filter form fieldset #categories {
+    max-height: 250px;
+    overflow-y: scroll;
+}
+.filter form fieldset #categories .form-check {
+    padding: 20px 35px;
+}
+.card .card-body .product-subtitle{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 160px;
+    white-space: nowrap;
+    margin-top: 50px;
+}
+
+@media only screen and (max-width: 767px) {
+    .featurette .featurette-heading {
+        margin-top: 0;
+    }
+    .filter form fieldset #categories {
+        max-height: 180px;
+    }
+    #logo-navbar {
+        height: 20px;
+    }
+}

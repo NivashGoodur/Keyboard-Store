@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos produits - Keyboard Store{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Nos produits</h1>
+    <hr>
+    <div class="row">
+        <section class="filter col-xl-2 col-md-3 py-md-5 mt-5">
+            {{ form(form) }}
+        </section>
+
+        <section class="py-md-5 col-xl-10 col-md-9">
+            <div class="px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
+                    {% for product in products %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <a href="{{ path('app_product', {slug: product.slug}) }}">
+                                <img class="card-img-top" src="{{ product.illustration }}" alt="{{ product.name }}">
+                            </a>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ product.name }}</h5>
+                                    <!-- Product price-->
+                                    {{ (product.price / 100)|number_format(2, ',', '.')}}€
+                                </div>
+                                <p class="product-subtitle">{{ product.subtitle }}</p>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_product', {slug: product.slug}) }}">View options</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+{% endblock %}
