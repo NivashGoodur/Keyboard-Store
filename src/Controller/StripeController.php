@@ -19,7 +19,7 @@ class StripeController extends AbstractController
     {
 
         $producs_for_stripe = [];
-        $YOUR_DOMAIN = 'https://keyboard-store.herokuapp.com';
+        $YOUR_DOMAIN = 'https://keyboard-store-e00fd7ddcdfc.herokuapp.com';
 
         $order = $entityManager->getRepository(Order::class)->findOneByReference($reference);
 
